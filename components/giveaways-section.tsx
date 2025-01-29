@@ -1,14 +1,13 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { useInView } from "react-intersection-observer"
-import Image from "next/image"
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 
 export function GiveawaysSection() {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
-  })
+  });
 
   return (
     <section id="giveaways" className="py-24 bg-gray-50 dark:bg-[#1a1a1a]">
@@ -33,7 +32,8 @@ export function GiveawaysSection() {
               Transform how you connect with your audience on X.
             </h3>
             <p className="text-gray-600 dark:text-gray-400">
-              xblinks makes rewarding engagement easy, personalized, and seamless. Ready to blink?
+              xblinks makes rewarding engagement easy, personalized, and
+              seamless. Ready to blink?
             </p>
             <button className="bg-[#08a0e9] text-white px-6 py-3 rounded-md hover:bg-[#08a0e9]/90 transition-colors">
               Get Started
@@ -48,9 +48,12 @@ export function GiveawaysSection() {
           >
             <div className="bg-gradient-to-r from-[#08a0e9] to-[#6acbfa] p-1 rounded-lg">
               <div className="bg-white dark:bg-[#252525] rounded-lg p-6">
-                <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Collect Sol Airdrop Giveaway</h3>
+                <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">
+                  Collect Sol Airdrop Giveaway
+                </h3>
                 <p className="text-gray-600 dark:text-gray-400 mb-4">
-                  Provide proof of attendance and collect your reward! Valid for the first 100 people.
+                  Provide proof of attendance and collect your reward! Valid for
+                  the first 100 people.
                 </p>
                 <p className="text-[#08a0e9] mb-6">Reward: 0.050 SOL</p>
                 <button className="w-full bg-[#08a0e9] text-white px-4 py-2 rounded-md hover:bg-[#08a0e9]/90 transition-colors">
@@ -62,6 +65,5 @@ export function GiveawaysSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }
-

@@ -37,7 +37,7 @@ export function HeroSection() {
                 <p className="text-[#433e3f] dark:text-[#ffffff] text-lg font-light italic">
                   Customizable rewards made easy,
                   <br />
-                  using Solana's innovative blinks
+                  using Solana&apos;s innovative blinks
                   <br />
                   solution
                 </p>
