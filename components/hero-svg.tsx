@@ -1,6 +1,6 @@
 import styles from "./hero-section.module.css";
 
-export function HeroSVG({ isDarkTheme }: { isDarkTheme: boolean }) {
+export function HeroSVG() {
   return (
     <svg
       viewBox="0 0 517 428"
