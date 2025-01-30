@@ -1,80 +1,198 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { useInView } from "react-intersection-observer"
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import localFont from "next/font/local";
 
-const steps = [
-  {
-    title: "For Creators",
-    items: [
-      "Create customized reward campaigns using XBlinks to engage your community",
-      "Offer incentives and reward real engagement, avoiding bots and passive claims",
-      "Use detailed analytics to optimize your engagement strategies",
-    ],
-  },
-  {
-    title: "For Participants",
-    items: [
-      "Participate in campaigns seamlessly through X",
-      "Earn rewards for genuine engagement and participation",
-      "Track your progress and rewards in real-time",
-    ],
-  },
-]
+const rethinkSans = localFont({
+  src: "../public/fonts/RethinkSans-Bold.ttf",
+  variable: "--font-rethink-sans",
+});
 
-export function HowItWorks() {
+const creatorSteps = [
+  "Create customized reward campaigns using XBlinks to engage your community",
+  "Offer incentives and reward real engagement, avoiding bots and passive claims",
+  "Use detailed analytics to optimize your engagement strategies",
+];
+
+const participantSteps = [
+  "Participate in reward campaigns directly through X",
+  "Complete tasks and earn rewards seamlessly",
+  "Track your progress in real-time",
+];
+
+function BoxButton({
+  children,
+  isActive,
+  onClick,
+}: {
+  children: React.ReactNode;
+  isActive: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className="relative w-full aspect-[501/170] group"
+    >
+      <svg
+        width="501"
+        height="170"
+        viewBox="0 0 501 170"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="absolute inset-0 w-full h-full"
+      >
+        <path
+          d="M499.337 126.253L455.843 168.603L1.66279 167.445V38.7989L33.5965 1.16279H499.337V126.253Z"
+          fill={isActive ? "#90D8FB" : "white"}
+          stroke="#151314"
+          strokeWidth="2.32558"
+        />
+        <rect
+          x="1.66279"
+          y="39.5349"
+          width="455.814"
+          height="127.907"
+          fill={isActive ? "#90D8FB" : "white"}
+          stroke="#151314"
+          strokeWidth="2.32558"
+        />
+        <path
+          d="M499.337 1.16284L456.314 40.6977"
+          stroke="#151314"
+          strokeWidth="2.32558"
+        />
+      </svg>
+      <span
+        className="absolute text-2xl md:text-3xl lg:text-4xl font-bold text-[#151314] leading-[120%] font-['Rethink_Sans']"
+        style={{
+          left: "10%",
+          top: "60%",
+          transform: "translateY(-50%)",
+          width: "80%",
+          textAlign: "left",
+        }}
+      >
+        {children}
+      </span>
+    </button>
+  );
+}
+
+function Separator() {
+  return (
+    <svg
+      width="3"
+      height="400"
+      viewBox="0 0 3 400"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className="h-full"
+    >
+      <rect
+        x="-0.75"
+        y="0.75"
+        width="1.5"
+        height="398.5"
+        transform="matrix(-1 0 0 1 1.5 0)"
+        fill="#0A0A0B"
+        stroke="black"
+        strokeWidth="1.5"
+      />
+    </svg>
+  );
+}
+
+export function HowItWorksSection() {
+  const [activeTab, setActiveTab] = useState<"creator" | "participant">(
+    "creator"
+  );
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
-  })
+  });
 
   return (
-    <section id="how-it-works" className="py-24 bg-gradient-to-b from-white to-gray-50">
-      <div className="container mx-auto px-4">
+    <section
+      ref={ref}
+      className={`py-24 bg-[#fafafa] dark:bg-[#0a0a0b] ${rethinkSans.variable}`}
+    >
+      <div className="container px-4 mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
-          className="text-3xl md:text-4xl font-bold text-center mb-16"
+          className="text-4xl font-bold text-center mb-16 text-[#151314] dark:text-white"
         >
           How It Works
         </motion.h2>
 
-        <div ref={ref} className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
-          {steps.map((step, index) => (
+        <div className="flex flex-col md:flex-row items-start justify-between gap-8 max-w-7xl mx-auto">
+          <div className="w-full md:w-[35%] flex flex-col gap-8 md:mt-[10%]">
             <motion.div
-              key={step.title}
-              initial={{ opacity: 0, x: index === 0 ? -20 : 20 }}
-              animate={inView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
-              className="space-y-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="w-full"
             >
-              <div className="bg-[#089fe9] text-white px-6 py-3 rounded-md inline-block">
-                <h3 className="text-xl font-semibold">{step.title}</h3>
-              </div>
-              <ul className="space-y-4">
-                {step.items.map((item, itemIndex) => (
+              <BoxButton
+                isActive={activeTab === "creator"}
+                onClick={() => setActiveTab("creator")}
+              >
+                For Creators
+              </BoxButton>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="w-full"
+            >
+              <BoxButton
+                isActive={activeTab === "participant"}
+                onClick={() => setActiveTab("participant")}
+              >
+                For Participants
+              </BoxButton>
+            </motion.div>
+          </div>
+
+          <div className="hidden md:block md:mt-8">
+            <Separator />
+          </div>
+
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+              className="w-full md:w-[55%] md:mt-[8%]"
+            >
+              <ul className="space-y-6">
+                {(activeTab === "creator"
+                  ? creatorSteps
+                  : participantSteps
+                ).map((step, index) => (
                   <motion.li
-                    key={itemIndex}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={inView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.5, delay: index * 0.2 + itemIndex * 0.1 }}
-                    className="flex items-start space-x-3"
+                    key={index}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3, delay: index * 0.1 }}
+                    className="text-lg sm:text-xl text-[#151314] dark:text-white border border-[#151314] dark:border-white p-4 rounded-md"
                   >
-                    <span className="bg-[#089fe9]/20 text-[#089fe9] rounded-full p-1 mt-1">
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </span>
-                    <span>{item}</span>
+                    {step}
                   </motion.li>
                 ))}
               </ul>
             </motion.div>
-          ))}
+          </AnimatePresence>
         </div>
       </div>
     </section>
-  )
+  );
 }
-

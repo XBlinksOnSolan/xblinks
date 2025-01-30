@@ -1,47 +1,60 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Menu, X } from "lucide-react"
-import { motion } from "framer-motion"
-import Link from "next/link"
-import Image from "next/image"
+import { useState, useEffect } from "react";
+import { Menu, X } from "lucide-react";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import Image from "next/image";
 
 export function NavBar() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [activeSection, setActiveSection] = useState("")
+  const [isOpen, setIsOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["hero", "features", "how-it-works", "giveaways"]
-      let current = ""
+      const sections = ["hero", "features", "how-it-works", "giveaways"];
+      let current = "";
 
       for (const section of sections) {
-        const element = document.getElementById(section)
+        const element = document.getElementById(section);
         if (element && window.scrollY >= element.offsetTop - 100) {
-          current = section
+          current = section;
         }
       }
 
-      setActiveSection(current)
-    }
+      setActiveSection(current);
+    };
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId)
+    const formattedId = sectionId.toLowerCase().replace(/\s+/g, "-");
+    const element = document.getElementById(formattedId);
+    console.log(`Scrolling to section: ${formattedId}`);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" })
+      const navbarHeight = 64; // Adjust this value based on your navbar height
+      const elementPosition =
+        element.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = elementPosition - navbarHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
     }
-    setIsOpen(false)
-  }
+    setIsOpen(false);
+  };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-[#151314]/80 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#fafafa] dark:bg-[#151314] shadow-md">
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-16">
-          <Link href="/" className="text-xl font-bold pl-2 transition-transform hover:scale-110 duration-300">
+          <Link
+            href="/"
+            className="text-xl font-bold pl-2 transition-transform hover:scale-110 duration-300"
+          >
             <Image
               src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-z22tI3NYBWRGYqQVqbSeRktAUt8OWO.png"
               alt="xblinks"
@@ -64,11 +77,11 @@ export function NavBar() {
               {["Features", "How It Works", "Giveaways"].map((item) => (
                 <button
                   key={item}
-                  onClick={() => scrollToSection(item.toLowerCase().replace(/\s+/g, "-"))}
-                  className={`text-sm hover:text-[#08a0e9] transition-colors ${
+                  onClick={() => scrollToSection(item)}
+                  className={`text-sm hover:text-[#90d8fb] transition-colors ${
                     activeSection === item.toLowerCase().replace(/\s+/g, "-")
-                      ? "text-[#08a0e9]"
-                      : "text-gray-600 dark:text-gray-300"
+                      ? "text-[#90d8fb]"
+                      : "text-[#433e3f] dark:text-[#fafafa]"
                   }`}
                 >
                   {item}
@@ -80,7 +93,7 @@ export function NavBar() {
           <div className="hidden md:block">
             <Link
               href="/get-started"
-              className="bg-[#08a0e9] text-white px-4 py-2 rounded-md hover:bg-[#08a0e9]/90 transition-colors"
+              className="bg-[#90d8fb] text-[#151314] px-4 py-2 rounded-md hover:bg-[#90d8fb]/90 transition-colors"
             >
               Get Started
             </Link>
@@ -92,7 +105,11 @@ export function NavBar() {
               onClick={() => setIsOpen(!isOpen)}
               className="transition-transform hover:scale-110 active:scale-95 duration-300"
             >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
             </button>
           </div>
         </div>
@@ -109,11 +126,11 @@ export function NavBar() {
               {["Features", "How It Works", "Giveaways"].map((item) => (
                 <button
                   key={item}
-                  onClick={() => scrollToSection(item.toLowerCase().replace(/\s+/g, "-"))}
-                  className={`text-sm hover:text-[#08a0e9] transition-colors ${
+                  onClick={() => scrollToSection(item)}
+                  className={`text-sm hover:text-[#90d8fb] transition-colors ${
                     activeSection === item.toLowerCase().replace(/\s+/g, "-")
-                      ? "text-[#08a0e9]"
-                      : "text-gray-600 dark:text-gray-300"
+                      ? "text-[#90d8fb]"
+                      : "text-[#433e3f] dark:text-[#fafafa]"
                   }`}
                 >
                   {item}
@@ -121,7 +138,7 @@ export function NavBar() {
               ))}
               <Link
                 href="/get-started"
-                className="bg-[#08a0e9] text-white px-4 py-2 rounded-md hover:bg-[#08a0e9]/90 transition-colors inline-block"
+                className="bg-[#90d8fb] text-[#151314] px-4 py-2 rounded-md hover:bg-[#90d8fb]/90 transition-colors inline-block"
               >
                 Get Started
               </Link>
@@ -130,6 +147,5 @@ export function NavBar() {
         )}
       </div>
     </nav>
-  )
+  );
 }
-
