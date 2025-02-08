@@ -5,6 +5,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { Suspense } from "react";
 import Loading from "./loading";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/react";
 
 const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"] });
 
@@ -36,6 +37,7 @@ export default function RootLayout({
             <ThemeToggle />
           </div>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
