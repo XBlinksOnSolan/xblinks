@@ -120,7 +120,7 @@ export function HowItWorksSection() {
     <section
       ref={ref}
       id="how-it-works"
-      className={`py-24 bg-[#fafafa] dark:bg-[#0a0a0b] ${inter.className}`}
+      className={`py-24 px-4 sm:px-8 md:px-8 bg-[#fafafa] dark:bg-[#0a0a0b] ${inter.className}`}
     >
       <div className="container px-4 mx-auto">
         <motion.h2

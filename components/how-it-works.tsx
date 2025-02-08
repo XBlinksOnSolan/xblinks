@@ -117,7 +117,7 @@ export function HowItWorksSection() {
   return (
     <section
       ref={ref}
-      className={`py-24 bg-[#fafafa] dark:bg-[#0a0a0b] ${rethinkSans.variable}`}
+      className={`py-24 px-4 sm:px-8 md:px-8 bg-[#fafafa] dark:bg-[#0a0a0b] ${rethinkSans.variable}`}
     >
       <div className="container px-4 mx-auto">
         <motion.h2

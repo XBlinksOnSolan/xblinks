@@ -28,7 +28,10 @@ export function FeaturesSection() {
   });
 
   return (
-    <section id="features" className="py-24 bg-white dark:bg-[#151314]">
+    <section
+      id="features"
+      className="py-24 px-4 sm:px-8 md:px-8 bg-white dark:bg-[#151314]"
+    >
       <div className="container mx-auto px-4">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}

@@ -11,7 +11,7 @@ export function HeroSection() {
   return (
     <section
       id="hero"
-      className="min-h-screen bg-white dark:bg-[#151314] relative overflow-hidden mb-0"
+      className="min-h-screen px-4 sm:px-8 md:px-8 bg-white dark:bg-[#151314] relative overflow-hidden mb-0"
     >
       <GridLines position="top" />
       <motion.div
